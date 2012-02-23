@@ -380,23 +380,68 @@ registerATCT(ATEvent, packageName)
 
 
 ## Object adapters
+from plone.event import IVEvent
+from plone.app.event.utils import utc
+from datetime import datetime
+class VEvent(object):
+    implements(IVEvent)
+    adapts(IATEvent)
+
+    def __init__(self, context):
+        self.context = context
+        self.attendees = context['attendees']
+        self.categories = context['subject']
+        self.contact_email = context['contactEmail']
+        self.contact_name = context['contactName']
+        self.contact_phone = context['contactPhone']
+        self.created = utc(pydt(context.creation_date))
+        self.description = context.Description()
+        self.dtend = context.end_date
+        self.dtstamp = utc(pydt(datetime.now()))
+        self.dtstart = context.start_date
+        self.last_mod = utc(pydt(context.modification_date))
+        self.location = context['location']
+        self.rrule = context.recurrence
+        self.summary = context.Title()
+        self.text = context.getText()
+        self.timezone = context.timezone
+        self.uid = context.UID()
+        self.url = context['eventUrl']
+        self.whole_day = context.whole_day
 
 @implementer(IEventAccessor)
 @adapter(IATEvent)
 def generic_event_accessor(context):
-    return {'start': context.start_date,
-            'end': context.end_date,
-            'timezone': context.timezone,
-            'whole_day': context.whole_day,
-            'recurrence': context.recurrence,
-            'location': context['location'],
+    return {
             'attendees': context['attendees'],
-            'contact_name': context['contactName'],
+            'categories': context['subject'],
             'contact_email': context['contactEmail'],
+            'contact_name': context['contactName'],
             'contact_phone': context['contactPhone'],
-            'event_url': context['eventUrl'],
-            'subjects': context['subject'],
-            'text': context.getText()}
+            'created': utc(pydt(context.creation_date)),
+            'description': context.Description(),
+            'dtend': context.end_date,
+            'dtstamp': utc(pydt(datetime.now())),
+            'dtstart': context.start_date,
+            'last-mod': utc(pydt(context.modification_date)),
+            'location': context['location'],
+            'rrule': context.recurrence,
+            'summary': context.Title(),
+            'text': context.getText(),
+            'timezone': context.timezone,
+            'uid': context.UID(),
+            'url': context['eventUrl'],
+            'whole_day': context.whole_day,
+            }
+
+# diff: contact, attendees
+
+# no: exdate, duration, recurid, transp, status, seq, priority, organizer, geo,
+# comment, class, attach, rstatus, related, resources, rdate, x-prop, iana_prop
+
+# diff: whole_day, timezone, contact_*, 
+            
+
 
 
 class Recurrence(object):

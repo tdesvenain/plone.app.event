@@ -303,7 +303,7 @@ class EventBehavior(EventBasic, EventRecurrence, EventLocation, EventAttendees, 
 
 
 ## Object adapters
-
+from plone.event import pydt
 @implementer(IEventAccessor)
 @adapter(IDXEvent)
 def generic_event_accessor(context):
@@ -314,8 +314,8 @@ def generic_event_accessor(context):
     event_contact = IEventContact(context, None)
     event_cat = ICategorization(context, None)
 
-    return {'start': event_basic and event_basic.start or None,
-            'end': event_basic and event_basic.end or None,
+    return {'dtstart': event_basic and event_basic.start or None,
+            'dtend': event_basic and event_basic.end or None,
             'timezone': event_basic and event_basic.timezone or None,
             'whole_day': event_basic and event_basic.whole_day or None,
             'recurrence': event_recurrence and event_recurrence.recurrence or None,
@@ -326,7 +326,12 @@ def generic_event_accessor(context):
             'contact_phone': event_contact and event_contact.contact_phone or None,
             'event_url': event_contact and event_contact.event_url or None,
             'subjects': event_cat and event_cat.subjects or None,
-            'text': None # TODO: implement me
+            'text': None, # TODO: implement me
+            'created': utc(pydt(context.creation_date)),
+            'uid':context.UID(),
+            'last-modified': utc(pydt(context.modification_date))
+            'summary': context.Title(),
+
             }
 
 
