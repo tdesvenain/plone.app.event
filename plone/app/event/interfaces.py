@@ -2,7 +2,7 @@ from zope import schema
 from zope.interface import Interface, Attribute
 
 from plone.event.utils import default_timezone as fallback_default_timezone
-from plone.app.event import messageFactory as _
+from plone.app.event.config import messageFactory as _
 
 
 class IEvent(Interface):

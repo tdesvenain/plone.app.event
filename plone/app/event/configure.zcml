@@ -6,6 +6,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="plone.app.event">
 
+    <five:registerPackage package="." initialize="plone.app.event.config.initialize" />
     <i18n:registerTranslations directory="locales" />
 
     <include zcml:provides="installed Products.ATContentTypes" package=".at" />

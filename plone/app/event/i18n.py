@@ -1,4 +1,4 @@
-from plone.app.event import messageFactory as _
+from plone.app.event.config import messageFactory as _
 
 _(u'weekday-abbrev-0')
 _(u'weekday-abbrev-1')

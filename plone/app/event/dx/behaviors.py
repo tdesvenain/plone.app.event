@@ -9,7 +9,7 @@ from zope.interface import implementer
 from zope.interface import alsoProvides
 from zope.interface import invariant, Invalid
 from plone.directives import form
-from plone.app.event import messageFactory as _
+from plone.app.event.config import messageFactory as _
 from plone.app.event.interfaces import IEventAccessor
 from plone.app.event.base import localized_now, DT
 from plone.app.event.base import default_timezone, default_end_dt

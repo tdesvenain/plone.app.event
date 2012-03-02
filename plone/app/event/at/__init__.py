@@ -10,7 +10,7 @@ def initialize(context):
     """
 
     from Products.CMFCore.utils import ContentInit
-    from plone.app.event import ADD_PERMISSION
+    from plone.app.event.config import ADD_PERMISSION
     from plone.app.event.at import content
 
     content_types, constructors, ftis = atapi.process_types(

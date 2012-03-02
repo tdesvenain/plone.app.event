@@ -3,7 +3,7 @@ from plone.app.registry.browser.controlpanel import RegistryEditForm
 
 from plone.z3cform import layout
 
-from plone.app.event import messageFactory as _
+from plone.app.event.config import messageFactory as _
 from plone.app.event.interfaces import IEventSettings
 
 
