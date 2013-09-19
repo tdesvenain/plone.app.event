@@ -4,6 +4,9 @@ Changelog
 1.0dev (unreleased)
 -------------------
 
+- Add plone.app.widgets support.
+  [thet]
+
 - Indexer adapter for SearchableText: fixed encoding inconsistencies.  Always
   return utf-8 encoded string while using unicode internally.
   [seanupton]

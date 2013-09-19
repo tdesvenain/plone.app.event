@@ -47,6 +47,13 @@ import pytz
 from z3c.form.browser.textlines import TextLinesFieldWidget
 
 
+try:
+    import plone.app.widgets
+    PAW = True
+except ImportError:
+    PAW = False
+PAW = False
+
 def first_weekday_sun0():
     return wkday_to_mon1(first_weekday())
 
@@ -59,8 +66,10 @@ class StartBeforeEnd(Invalid):
 class IEventBasic(model.Schema):
     """ Basic event schema.
     """
-    form.widget('start', DatetimeFieldWidget, first_day=first_weekday_sun0)
-    form.widget('end', DatetimeFieldWidget, first_day=first_weekday_sun0)
+    if not PAW:
+        # plone.app.widgets provides their own datetime widgets
+        form.widget('start', DatetimeFieldWidget, first_day=first_weekday_sun0)
+        form.widget('end', DatetimeFieldWidget, first_day=first_weekday_sun0)
     model.fieldset('dates', fields=['timezone'])
 
     start = schema.Datetime(
@@ -157,11 +166,13 @@ class IEventRecurrence(model.Schema):
     # and IRecurrence, then you have to reconfigure the dotted path value of
     # the start_field parameter for the RecurrenceFieldWidget to the new
     # behavior name, like: IMyNewBehaviorName.start.
-    form.widget('recurrence', RecurrenceFieldWidget,
-        start_field='IEventBasic.start',
-        first_day=first_weekday_sun0
-    )
-    recurrence = RecurrenceField(
+    if not PAW:
+        # plone.app.widgets provides their own widgets
+        form.widget('recurrence', RecurrenceFieldWidget,
+            start_field='IEventBasic.start',
+            first_day=first_weekday_sun0
+        )
+    recurrence = schema.Text(
         title = _(
             u'label_event_recurrence',
             default=u'Recurrence'
