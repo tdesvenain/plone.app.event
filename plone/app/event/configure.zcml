@@ -11,11 +11,10 @@
   <!-- external dependencies -->
   <include package="plone.browserlayer" />
   <include package="plone.event" />
-  <include package="plone.formwidget.recurrence" />
-  <include package="plone.formwidget.datetime" />
+  <include package="plone.formwidget.recurrence" zcml:condition="not-installed plone.app.widgets" />
+  <include package="plone.formwidget.datetime" zcml:condition="not-installed plone.app.widgets" />
   <include package="plone.app.portlets" />
   <include package="plone.app.registry" />
-  <include package="plone.app.widgets" />
 
   <!-- internal dependencies -->
   <configure zcml:condition="not-have plone-44">
