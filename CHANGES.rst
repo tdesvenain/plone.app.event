@@ -5,7 +5,7 @@ Changelog
 -------------------
 
 - Add plone.app.widgets support.
-  [thet]
+  [agitator, thet]
 
 - Indexer adapter for SearchableText: fixed encoding inconsistencies.  Always
   return utf-8 encoded string while using unicode internally.
