@@ -89,12 +89,10 @@ def upgrade_step_1_bis(context):
         left_portlets = obj.restrictedTraverse('++contextportlets++plone.leftcolumn').items()
         for name, assignment in right_portlets + left_portlets:
             if assignment.__class__.__module__ == 'plone.app.event.portlets.calendar':
-                import pdb;pdb.set_trace()
                 assignment.__class__ = CalendarAssignment
                 logger.info("Updated portlet : %s at %s", name, path)
 
             if assignment.__class__.__module__ == 'plone.app.event.portlets.events':
-                import pdb;pdb.set_trace()
                 assignment.__class__ = EventsAssignment
                 logger.info("Updated portlet : %s at %s", name, path)
 
