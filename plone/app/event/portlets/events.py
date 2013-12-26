@@ -1,0 +1,1 @@
+from .portlet_events import Assignment
