@@ -18,7 +18,7 @@ from zope.formlib import form
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
 
-import calendar
+calendar = __import__('calendar')
 
 
 PLMF = MessageFactory('plonelocales')

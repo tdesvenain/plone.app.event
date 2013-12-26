@@ -11,3 +11,4 @@ PORTAL_CHANGE_PERMISSION = 'Change portal events'
 setDefaultRoles(ADD_PERMISSION, ('Manager', 'Site Administrator', 'Owner',))
 setDefaultRoles(PORTAL_ADD_PERMISSION, ('Manager', 'Site Administrator', 'Owner',))
 setDefaultRoles(PORTAL_CHANGE_PERMISSION, ('Manager', 'Site Administrator', 'Owner',))
+

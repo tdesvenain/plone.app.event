@@ -66,3 +66,37 @@ def upgrade_step_1(context):
     )
 
     return walker.getOutput()
+
+from ecreall.helpers.upgrade.interfaces import IUpgradeTool
+from Products.Archetypes.interfaces.base import IBaseContent
+
+def upgrade_step_1_bis(context):
+    tool = IUpgradeTool(context)
+    from plone.app.event.at.content import ATEvent
+    from plone.app.event.portlets.portlet_calendar import Assignment as CalendarAssignment
+    from plone.app.event.portlets.portlet_events import Assignment as EventsAssignment
+
+    def update_at_class(obj, path):
+        if obj.__class__.__module__ == 'plone.app.event.event':
+            obj.__class__ = ATEvent
+            logger.info("Updated class : %s", path)
+
+    tool.migrateContent('Event', update_at_class)
+    tool.runImportStep('plone.app.event', 'plone.app.registry')
+
+    def update_portlets(obj, path):
+        right_portlets = obj.restrictedTraverse('++contextportlets++plone.rightcolumn').items()
+        left_portlets = obj.restrictedTraverse('++contextportlets++plone.leftcolumn').items()
+        for name, assignment in right_portlets + left_portlets:
+            if assignment.__class__.__module__ == 'plone.app.event.portlets.calendar':
+                import pdb;pdb.set_trace()
+                assignment.__class__ = CalendarAssignment
+                logger.info("Updated portlet : %s at %s", name, path)
+
+            if assignment.__class__.__module__ == 'plone.app.event.portlets.events':
+                import pdb;pdb.set_trace()
+                assignment.__class__ = EventsAssignment
+                logger.info("Updated portlet : %s at %s", name, path)
+
+    tool.migrateContent(tool.portal.portal_types.keys(),
+                        update_portlets)

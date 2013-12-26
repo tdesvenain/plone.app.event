@@ -16,4 +16,17 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1"
+    destination="2"
+    profile="plone.app.event.at:default">
+
+    <genericsetup:upgradeStep
+      title="Migrate old plone.app.event to new plone.app.event"
+      description="Upgrades old plone.app.event.content.ATEvent events to new plone.app.events.at.ATEvent"
+      handler=".event.upgrade_step_1_bis"
+      />
+
+  </genericsetup:upgradeSteps>
+
 </configure>

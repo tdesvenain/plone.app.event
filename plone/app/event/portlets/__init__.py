@@ -1,7 +1,6 @@
 from plone.app.event.base import find_ploneroot
 from plone.app.event.base import find_site
 
-
 def get_calendar_url(context, search_base):
     # search_base is always from the portal_root object. We won't include
     # the path from the portal root object, so we traverse to the calendar
@@ -17,3 +16,5 @@ def get_calendar_url(context, search_base):
         calendar_url = '%s/event_listing' % site_url
 
     return calendar_url
+
+from . import calendar
